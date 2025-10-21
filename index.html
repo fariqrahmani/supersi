@@ -4,122 +4,100 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Generator Naskah Revisi DIPA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Generator Naskah Revisi DIPA</h1>
-    <p class="subtitle">Isi data berikut untuk menghasilkan perihal dan tujuan naskah secara otomatis.</p>
+  <div class="page-wrapper">
+    <!-- Kartu 1: Form -->
+    <div class="card form-section">
+      <h2>Input Data</h2>
+      <p class="subtitle">Isi data berikut untuk menghasilkan perihal dan tujuan naskah.</p>
 
-    <div class="form-section">
-        <!-- Input: Nama Petugas -->
-        <label for="namaPetugas">Nama Petugas:</label>
-        <input type="text" id="namaPetugas" maxlength="8" placeholder="Maks. 8 karakter">
-        <p id="namaPetugasError" class="error"></p>
+      <label for="namaPetugas">Nama Petugas:</label>
+      <input type="text" id="namaPetugas" maxlength="8" placeholder="Maks. 8 karakter">
+      <p id="namaPetugasError" class="error"></p>
 
-        <label for="kodeDipaInput">Kode DIPA:</label>
-        <input type="text" id="kodeDipaInput" placeholder="Contoh: 641703" />
-        <p id="kodeError" class="error"></p>
-  
-        <label for="noRevisiInput">Nomor Revisi:</label>
-        <input type="number" id="noRevisiInput" placeholder="1–99" />
-        <p id="revisiError" class="error"></p>
+      <label for="kodeDipaInput">Kode DIPA:</label>
+      <input type="text" id="kodeDipaInput" placeholder="Contoh: 641703" />
+      <p id="kodeError" class="error"></p>
 
-        <!-- Input: Nomor Surat Masuk -->
-        <label for="nomorSuratMasuk">Nomor Surat Masuk:</label>
-        <input type="text" id="nomorSuratMasuk" maxlength="50" placeholder="Contoh: B/145/X/REN.3.2/2023">
-        <p id="nomorSuratMasukError" class="error"></p>
+      <label for="noRevisiInput">Nomor Revisi:</label>
+      <input type="number" id="noRevisiInput" placeholder="1–99" />
+      <p id="revisiError" class="error"></p>
 
-        <!-- Input: Tanggal Surat Masuk -->
-        <label for="tanggalSuratMasuk">Tanggal Surat Masuk:</label>
-        <input type="date" id="tanggalSuratMasuk">
-        <p id="tanggalSuratMasukError" class="error"></p>
+      <label for="nomorSuratMasuk">Nomor Surat Masuk:</label>
+      <input type="text" id="nomorSuratMasuk" maxlength="50" placeholder="Contoh: B/145/X/REN.3.2/2023">
+      <p id="nomorSuratMasukError" class="error"></p>
 
-        <!-- Input: Tahun Anggaran -->
-        <label for="tahunAnggaran">Tahun Anggaran:</label>
-        <select id="tahunAnggaran">
+      <label for="tanggalSuratMasuk">Tanggal Surat Masuk:</label>
+      <input type="date" id="tanggalSuratMasuk">
+      <p id="tanggalSuratMasukError" class="error"></p>
+
+      <label for="tahunAnggaran">Tahun Anggaran:</label>
+      <select id="tahunAnggaran">
         <option value="">-- Pilih Tahun --</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-        <option value="2022">2022</option>
-        <option value="2023">2023</option>
-        <option value="2024">2024</option>
-        <option value="2025">2025</option>
-        <option value="2026">2026</option>
-        <option value="2027">2027</option>
-        <option value="2028">2028</option>
-        <option value="2029">2029</option>
-        <option value="2030">2030</option>
-        </select>
-        <p id="tahunAnggaranError" class="error"></p>
+        <option>2023</option>
+        <option>2024</option>
+        <option>2025</option>
+        <option>2026</option>
+      </select>
+      <p id="tahunAnggaranError" class="error"></p>
 
-        <!-- Input: Perubahan Kode Pengaman -->
-        <label for="perubahanKodePengaman">Perubahan Kode Pengaman:</label>
-        <select id="perubahanKodePengaman">
+      <label for="perubahanKodePengaman">Perubahan Kode Pengaman:</label>
+      <select id="perubahanKodePengaman">
         <option value="">-- Pilih Status --</option>
         <option value="tetap">Tidak berubah/tetap</option>
         <option value="berubah">Berubah menjadi</option>
-        </select>
-        <p id="perubahanKodePengamanError" class="error"></p>
+      </select>
+      <p id="perubahanKodePengamanError" class="error"></p>
 
-        <!-- Input: Kode Pengaman (Digital Stamp) -->
-        <label for="kodePengaman">Kode Pengaman (Digital Stamp):</label>
-        <input type="text" id="kodePengaman" placeholder="Contoh: 2012 2567 0710 4441" maxlength="23">
-        <p id="kodePengamanError" class="error"></p>
+      <label for="kodePengaman">Kode Pengaman (Digital Stamp):</label>
+      <input type="text" id="kodePengaman" placeholder="Contoh: 2012 2567 0710 4441" maxlength="23">
+      <p id="kodePengamanError" class="error"></p>
 
-        <!-- <label>Jenis Revisi:</label>
-        <div class="checkbox-group">
-        <label><input type="checkbox" name="jenisRevisi" value="Administratif"> Administratif</label>
-        <label><input type="checkbox" name="jenisRevisi" value="Pagu Tetap"> Pagu Tetap</label>
-        <label><input type="checkbox" name="jenisRevisi" value="Pagu Berubah"> Pagu Berubah</label>
-        </div>
-        <p id="jenisRevisiError" class="error"></p>
-
-
-        <label>Kode Revisi:</label>
-        <div class="checkbox-group">
-        <label><input type="checkbox" name="kodeRevisi" value="315"> 315 | Pencantuman/Perubahan Rencana Penarikan Dana atau Perkiraan Penerimaan dalam Halaman III DIPA</label>
-        <label><input type="checkbox" name="kodeRevisi" value="325"> 325 | Pemutakhiran Data Hasil Revisi POK</label>
-        </div>
-        <p id="kodeRevisiError" class="error"></p> -->
-
-      <button id="submitBtn" class="btn-primary">Submit</button>
+      <button id="submitBtn" class="btn-primary">Proses</button>
+      <p id="notif" class="notif"></p>
     </div>
 
-    <p id="notif" class="notif"></p>
+    <!-- Kartu 2: Info Section -->
+    <div class="card info-section">
+      <h2>Informasi Naskah</h2>
 
-    <!-- Hasil dan tombol salin -->
-    <div class="result-section">
-      <p id="result" class="output"></p>
-      <button id="copyBtn" class="btn-secondary">Salin Perihal Naskah</button>
+      <div class="output-group">
+        <p id="result" class="output"></p>
+        <button id="copyBtn" class="btn-secondary">Salin Perihal Naskah</button>
+      </div>
+
+      <div class="output-group">
+        <p id="tujuanSatker" class="output"></p>
+        <button id="copySatkerBtn" class="btn-secondary">Salin Tujuan Satker</button>
+      </div>
+
+      <div class="output-group">
+        <p id="tujuanKppn" class="output"></p>
+        <button id="copyKppnBtn" class="btn-secondary">Salin Tujuan KPPN</button>
+      </div>
+
+      <div class="output-group">
+        <p id="tujuanKepalaBa" class="output"></p>
+        <button id="copyBaBtn" class="btn-secondary">Salin Tujuan Kepala BA</button>
+      </div>
+
+      <div class="output-group">
+        <p id="tujuanKepalaBpk" class="output"></p>
+        <button id="copyBpkBtn" class="btn-secondary">Salin Tujuan Kepala BPK</button>
+      </div>
+
+      <div class="output-group">
+        <p id="tujuanKepalaDja" class="output"></p>
+        <button id="copyDjaBtn" class="btn-secondary">Salin Tujuan Kepala DJA</button>
+      </div>
     </div>
 
-    <div class="result-section">
-      <p id="tujuanSatker" class="output"></p>
-      <button id="copySatkerBtn" class="btn-secondary">Salin Tujuan Satker</button>
-    </div>
-
-    <div class="result-section">
-      <p id="tujuanKppn" class="output"></p>
-      <button id="copyKppnBtn" class="btn-secondary">Salin Tujuan KPPN</button>
-    </div>
-
-    <div class="result-section">
-      <p id="tujuanKepalaBa" class="output"></p>
-      <button id="copyBaBtn" class="btn-secondary">Salin Tujuan Kepala BA</button>
-    </div>
-
-    <div class="result-section">
-      <p id="tujuanKepalaBpk" class="output"></p>
-      <button id="copyBpkBtn" class="btn-secondary">Salin Tujuan Kepala BPK</button>
-    </div>
-
-    <div class="result-section">
-      <p id="tujuanKepalaDja" class="output"></p>
-      <button id="copyDjaBtn" class="btn-secondary">Salin Tujuan Kepala DJA</button>
-    </div>
-
-    <div class="result-section">
+    <!-- Kartu 3: Naskah Section -->
+    <div class="card naskah-section">
+      <h2>Isi Naskah</h2>
       <button id="copyPengesahan" class="btn-accent">Salin Naskah Pengesahan</button>
       <button id="copyPengantar" class="btn-accent">Salin Nota Pengantar</button>
     </div>
