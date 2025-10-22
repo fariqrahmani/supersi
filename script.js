@@ -121,8 +121,22 @@ document.getElementById("submitBtn").addEventListener("click", () => {
     [tujuanKepalaDja, copyDjaBtn],
     [copyPengesahanBtn, copyPengantarBtn]
   ].forEach(pair => {
-    pair.forEach(el => { if (el) el.style.display = "block"; });
+    pair.forEach(el => { if (el) el.style.display = "inline-block"; });
   });
+
+  // ====== Tambahan baru: Tutup accordion form setelah klik Proses ======
+  const formCard = document.querySelector(".form-section")?.closest(".accordion-card");
+  if (formCard) formCard.classList.remove("open");
+  if (formCard) formCard.classList.add("closed");
+
+  // ====== Tambahan baru: Buka kartu Info dan Naskah setelah klik Proses ======
+const infoCard = document.querySelector(".info-section")?.closest(".accordion-card");
+const naskahCard = document.querySelector(".naskah-section")?.closest(".accordion-card");
+[infoCard, naskahCard].forEach(card => {
+  if (card) {
+    card.classList.remove("closed");
+    card.classList.add("open");
+  }});
 });
 
 // ====== Fungsi Notifikasi Mini ======
@@ -149,10 +163,10 @@ function copyText(id, message, e) {
 
 // ====== Fungsi Pengesahan & Pengantar ======
 function copyPengesahan(e) {
-    if (!hasilRevisi.kodeDipa)
-      return alert("Isi data terlebih dahulu dengan menekan Submit.");
-  
-    const teks = `<p ${paragraphStyle}>
+  if (!hasilRevisi.kodeDipa)
+    return alert("Isi data terlebih dahulu dengan menekan Submit.");
+
+  const teks = `<p ${paragraphStyle}>
     Sehubungan dengan surat usulan Revisi Anggaran dari KPA Satker Polres Pangkal Pinang (655298)
     nomor B/2404/X/2023 tanggal 13 Oktober 2023 untuk DIPA Petikan Tahun Anggaran 2023 nomor
     SP DIPA-060.01.2.655298/2023 tanggal 30 November 2022 dengan ini disampaikan:
@@ -168,24 +182,23 @@ function copyPengesahan(e) {
   <p ${paragraphStyle}>
     Demikian disampaikan, untuk dilaksanakan dengan penuh tanggung jawab.
   </p>`;
-  
-    // ✅ Buat clipboard rich text (HTML)
-    const blob = new Blob([teks], { type: "text/html" });
-    const data = [new ClipboardItem({ "text/html": blob })];
-  
-    navigator.clipboard.write(data)
-      .then(() => showSmallNotif(e.target, "✅ Naskah Pengesahan berhasil disalin dalam format Rich Text!"))
-      .catch(err => {
-        console.error("Clipboard gagal:", err);
-        showSmallNotif(e.target, "⚠️ Gagal menyalin. Gunakan browser modern (Chrome/Edge).");
-      });
-  }
+
+  const blob = new Blob([teks], { type: "text/html" });
+  const data = [new ClipboardItem({ "text/html": blob })];
+
+  navigator.clipboard.write(data)
+    .then(() => showSmallNotif(e.target, "✅ Naskah Pengesahan berhasil disalin dalam format Rich Text!"))
+    .catch(err => {
+      console.error("Clipboard gagal:", err);
+      showSmallNotif(e.target, "⚠️ Gagal menyalin. Gunakan browser modern (Chrome/Edge).");
+    });
+}
 
 function copyPengantar(e) {
-    if (!hasilRevisi.kodeDipa)
-      return alert("Isi data terlebih dahulu dengan menekan Submit.");
-  
-    const teks = `<p ${paragraphStyle}>
+  if (!hasilRevisi.kodeDipa)
+    return alert("Isi data terlebih dahulu dengan menekan Submit.");
+
+  const teks = `<p ${paragraphStyle}>
     Sehubungan dengan surat usulan revisi anggaran dari ${hasilRevisi.teksSatker} nomor B/145/X/REN.3.2/2023 tanggal 16 Oktober 2023
     untuk DIPA Petikan Tahun Anggaran 2023 nomor SP DIPA-${hasilRevisi.kodeBa}.${hasilRevisi.kodeEs1}.${hasilRevisi.kodeDipa}/2023
     tanggal 30 November 2022, dengan ini kami sampaikan hal-hal sebagai berikut:
@@ -209,17 +222,16 @@ function copyPengantar(e) {
   </ol>
 
   <p ${paragraphStyle}>Demikian disampaikan, mohon penetapan.</p>`;
-  
-    // ✅ Buat clipboard rich text (HTML)
-    const blob = new Blob([teks], { type: "text/html" });
-    const data = [new ClipboardItem({ "text/html": blob })];
-  
-    navigator.clipboard.write(data)
-      .then(() => showSmallNotif(e.target, "✅ Nota Pengantar berhasil disalin dalam format Rich Text!"))
-      .catch(err => {
-        console.error("Clipboard gagal:", err);
-        showSmallNotif(e.target, "⚠️ Gagal menyalin. Gunakan browser modern (Chrome/Edge).");
-      });
+
+  const blob = new Blob([teks], { type: "text/html" });
+  const data = [new ClipboardItem({ "text/html": blob })];
+
+  navigator.clipboard.write(data)
+    .then(() => showSmallNotif(e.target, "✅ Nota Pengantar berhasil disalin dalam format Rich Text!"))
+    .catch(err => {
+      console.error("Clipboard gagal:", err);
+      showSmallNotif(e.target, "⚠️ Gagal menyalin. Gunakan browser modern (Chrome/Edge).");
+    });
 }
 
 // ====== Tombol Salin ======
@@ -243,3 +255,47 @@ document.getElementById("copyDjaBtn").addEventListener("click", e =>
 );
 document.getElementById("copyPengesahan").addEventListener("click", copyPengesahan);
 document.getElementById("copyPengantar").addEventListener("click", copyPengantar);
+
+// ====== Tambahan Baru: FUNGSI AKORDION ======
+document.querySelectorAll(".accordion-header").forEach(header => {
+  header.addEventListener("click", () => {
+    const card = header.closest(".accordion-card");
+    card.classList.toggle("closed");
+    card.classList.toggle("open");
+  });
+});
+
+// ====== Fungsi Tombol Bersihkan ======
+document.getElementById("resetBtn").addEventListener("click", () => {
+
+  // Kosongkan semua input dan select
+  document.querySelectorAll("input, select").forEach(el => {
+    if (el.type === "checkbox" || el.type === "radio") el.checked = false;
+    else el.value = "";
+  });
+
+  // Kosongkan semua hasil output
+  document.querySelectorAll(".output").forEach(el => el.textContent = "");
+
+  // Kosongkan notifikasi
+  document.querySelectorAll(".error, .notif, .small-notif").forEach(el => el.textContent = "");
+
+  // Reset variabel global
+  for (const key in hasilRevisi) delete hasilRevisi[key];
+
+  // Tutup semua kartu Info & Naskah, buka kembali Form
+  const formCard = document.querySelector(".form-section")?.closest(".accordion-card");
+  const infoCard = document.querySelector(".info-section")?.closest(".accordion-card");
+  const naskahCard = document.querySelector(".naskah-section")?.closest(".accordion-card");
+
+  if (formCard) {
+    formCard.classList.remove("closed");
+    formCard.classList.add("open");
+  }
+  [infoCard, naskahCard].forEach(card => {
+    if (card) {
+      card.classList.remove("open");
+      card.classList.add("closed");
+    }
+  });
+});
